@@ -142,8 +142,39 @@ public class EstudianteDao {
 
         return false;
     }
+
+    public boolean eliminarEstudiante(Estudiante estudiante){
+        PreparedStatement ps ;
+        Connection con = getConexion();
+        String sql = "delete from estudiante where id_estudiante = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,estudiante.getIdEstudiante());
+            ps.execute();
+            return true;
+
+
+        }catch (Exception e ){
+            System.out.println("Error al eliminar estudiante: " + e.getMessage());
+        }
+        finally {
+            try{
+                con.close();
+            }catch (Exception e){
+                System.out.println("Error al cerrar conexion:  " + e.getMessage());
+            }
+        }
+
+        return false;
+
+    }
+
+
+
     public static void main(String[] args) {
         var estudianteDao = new EstudianteDao();
+        /*
         //agragar
         var nuevoEstudiante = new Estudiante("Carlos","Lara","5578465522","c@mail.com");
         var agregado = estudianteDao.agregarEstudiante(nuevoEstudiante);
@@ -153,7 +184,8 @@ public class EstudianteDao {
             System.out.println("No se agrego el estudiiante: " + nuevoEstudiante);
 
         }
-
+*/
+        /*
         //modificar
         var estudianteModificar = new Estudiante(1,"Juan Carlos","Juarez","556662222277","juan@mail.com");
         var modificado = estudianteDao.modificarEstudiante(estudianteModificar);
@@ -163,6 +195,20 @@ public class EstudianteDao {
         }else {
             System.out.println("No se modifico estudiante: " + estudianteModificar);
         }
+
+*/
+
+        //Eliminar {
+        var estudianteEliminar = new Estudiante(3);
+        var eliminado = estudianteDao.eliminarEstudiante(estudianteEliminar);
+        if (eliminado){
+            System.out.println("Estudiante eliminado: " +estudianteEliminar);
+        }else {
+
+            System.out.println("No se elimino estudiante: " + estudianteEliminar);
+
+        }
+
 
 
         //Listar los estudiiantes
